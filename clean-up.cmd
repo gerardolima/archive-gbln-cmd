@@ -2,13 +2,11 @@
 @ECHO OFF
 SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
-CHCP 65001
+CHCP 65001 > NUL
 :: ATTENTION: this file MUST enconded as "UTF-8 WITHOUT BOM"
 
 :: Code sample to handle resourses that must be released.
 :: run this test as $> cmd /c try.cmd
-
-SETLOCAL
     
   ECHO * STEP 1: ACQUIRE RESOURCE *
   ECHO * STEP 2: ERROR HAPPENS *
