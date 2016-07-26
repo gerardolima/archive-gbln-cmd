@@ -18,4 +18,5 @@ CALL cmd /c library-serve.cmd :RAISEERROR
 ECHO %ERRORLEVEL%
 
 ECHO END OF TESTS
+
 GOTO:EOF
