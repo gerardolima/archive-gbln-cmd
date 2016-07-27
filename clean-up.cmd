@@ -9,16 +9,16 @@ CHCP 65001 > NUL
 :: run this test as $> cmd /c clean-up.cmd 0
 :: run this test as $> cmd /c clean-up.cmd 5
     
-  SET %trigger%=0%~1
-  SET %allways%=0
+  SET /A "PARAM_TRIGGER=0%~1"
+  SET /A "CONST_ALLWAYS=0"
 
-  ECHO trigger=%trigger%+
-  ECHO allways=%allways%+
+  ECHO PARAM_TRIGGER: %PARAM_TRIGGER%
+  ECHO CONST_ALLWAYS: %CONST_ALLWAYS%
   
   ECHO * STEP 1: ACQUIRE RESOURCE *
   ECHO * STEP 2: ERROR HAPPENS *
-  CALL :ERROR %trigger% 97 "Conditional error message" & REM this error will happen when the parameter is not zero
-  CALL :ERROR %allways% 98 "An error message"          & REM this error will always happen
+  CALL :ERROR %PARAM_TRIGGER% 97 "Conditional error message" & REM this error will happen when the parameter is not zero
+  CALL :ERROR %CONST_ALLWAYS% 98 "Always error message"      & REM this error will always happen
   
   ECHO * STEP 3: NOT EXECUTED *
 
