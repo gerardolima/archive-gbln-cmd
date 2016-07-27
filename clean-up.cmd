@@ -6,12 +6,19 @@ CHCP 65001 > NUL
 :: ATTENTION: this file MUST enconded as "UTF-8 WITHOUT BOM"
 
 :: Code sample to handle resourses that must be released.
-:: run this test as $> cmd /c try.cmd
+:: run this test as $> cmd /c clean-up.cmd 0
+:: run this test as $> cmd /c clean-up.cmd 5
     
+  SET %trigger%=0%~1
+  SET %allways%=0
+
+  ECHO trigger=%trigger%+
+  ECHO allways=%allways%+
+  
   ECHO * STEP 1: ACQUIRE RESOURCE *
   ECHO * STEP 2: ERROR HAPPENS *
-  CALL :ERROR 98 "An error message"
-
+  CALL :ERROR %trigger% 97 "Conditional error message" & REM this error will happen when the parameter is not zero
+  CALL :ERROR %allways% 98 "An error message"          & REM this error will always happen
   
   ECHO * STEP 3: NOT EXECUTED *
 
@@ -20,9 +27,11 @@ CHCP 65001 > NUL
 GOTO:EOF
 
 
-:ERROR err.number err.message
-  :: this routine is resposible to call :CLEANUP before exit
-  CALL :CLEANUP
 
-  ECHO ERROR: %~2 [%1]
-  EXIT %1
+:ERROR <err.trigger> <err.number> <err.message>
+  :: this routine is resposible to call :CLEANUP before exit
+  IF %1 GTR %ERRORLEVEL% (GOTO:EOF)
+
+  CALL :CLEANUP
+  ECHO ERROR: %~3 [%2]
+  EXIT %2
