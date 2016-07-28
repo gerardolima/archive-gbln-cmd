@@ -29,7 +29,11 @@ GOTO:EOF
 
 
 :ERROR <err.trigger> <err.number> <err.message>
-  :: this routine is resposible to call :CLEANUP before exit
+  :: ========================================================================================
+  :: This routine is a helper to handle error conditions; if %ERRORLEVEL% is equal or greater
+  :: than <err.trigger>, it calls the :CLEANUP label, writes the given <err.message> to error
+  :: stream (stderr) and abort the script with the given <err.number>.
+  :: ========================================================================================
   IF %1 GTR %ERRORLEVEL% (GOTO:EOF)
 
   CALL :CLEANUP
