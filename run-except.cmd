@@ -18,7 +18,7 @@ GOTO:EOF
 
 
 
-:RUN_EXCEPT <pattern> <directory> <command>
+:RUN_EXCEPT <pattern> <command> <directory>
   :: ========================================================================================
   :: This routine runs the <command> on all files into the <directory> that do NOT macth
   :: the <pattern> on FINDSTR. Default values follow
